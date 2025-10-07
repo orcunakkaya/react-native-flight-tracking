@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import AirportPicker from '../components/ui/AirPortPicker';
+
 const Book = () => {
   const [tripType, setTripType] = useState('oneWay');
+  const [from, setFrom] = useState(null);
   return (
     <>
     <View style={styles.container}>
@@ -36,6 +39,13 @@ const Book = () => {
           </Text>
         </TouchableOpacity>
       </View>
+
+      <AirportPicker
+          label="🛫 Nereden"
+          value={from}
+          onSelect={setFrom}
+          placeholder="Seçiniz"
+        />
     </View>
     </>
   )
