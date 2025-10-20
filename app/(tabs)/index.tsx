@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AirportPicker from '../components/ui/AirPortPicker';
+import DatePicker from '../components/ui/DatePicker';
 
 const Book = () => {
-  const [tripType, setTripType] = useState('oneWay');
+  const [tripType, setTripType] = useState<'oneWay' | 'roundTrip'>('oneWay');
   const [from, setFrom] = useState(null);
+  const [to, setTo] = useState(null);
+
+  const [departureDate, setDepartureDate] = useState(null);
+
+  useEffect(() => {
+    setDepartureDate(null);
+  }, [tripType])
   return (
     <>
     <View style={styles.container}>
@@ -46,6 +54,13 @@ const Book = () => {
           onSelect={setFrom}
           placeholder="Seçiniz"
         />
+        <AirportPicker
+          label="🛫 Nereye"
+          value={to}
+          onSelect={setTo}
+          placeholder="Seçiniz"
+        />
+        <DatePicker label={tripType === 'oneWay' ? "🛫 Gidiş tarihi" : "🛫 Gidiş dönüş tarihi"} value={departureDate} setValue={setDepartureDate} tripType={tripType} />
     </View>
     </>
   )
