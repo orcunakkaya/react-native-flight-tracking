@@ -21,8 +21,6 @@ const PassengerPicker = ({
 }) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-
-
   const handleSave = () => {
     setModalVisible(false);
   }
@@ -38,7 +36,7 @@ const PassengerPicker = ({
           <Text style={styles.inputLabel}>{label}</Text>
           <Text style={[styles.inputValue, !value && styles.placeholder]}>
             
-            {value ? value.startDate + (value.endDate ? ` - ${value.endDate}` : '') : 'Tarih seçiniz'}
+            {value ? (`${value.adult} adult, ${value.child} child, ${value.infant} infant`) : 'Tarih seçiniz'}
           </Text>
         </View>
         <Text style={styles.chevron}>›</Text>
@@ -103,12 +101,12 @@ const PassengerPicker = ({
             </View>
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.saveButton}
             onPress={() => handleSave()}
           >
             <Text style={styles.saveText}>Kaydet</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </Modal>
     </>
@@ -195,15 +193,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     color: "#333",
-  },
-  saveButton: {
-    backgroundColor: "#e81932",
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  saveText: { color: "#fff", fontSize: 16, fontWeight: "600" },
+  }
 });
 
 export default PassengerPicker;
