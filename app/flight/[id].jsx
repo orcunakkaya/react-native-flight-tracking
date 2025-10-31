@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import { saveTicket } from '../../utils/storage';
 export default function FlightDetail() {
   const params = useLocalSearchParams();
   const router = useRouter();
@@ -17,31 +17,36 @@ export default function FlightDetail() {
   // Flight data'yı parse et
   const flight = JSON.parse(params.flightData);
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     setPurchasing(true);
 
     // Mock satın alma işlemi (2 saniye)
-    setTimeout(() => {
+    setTimeout(async () => {
+      const result = await saveTicket(flight);
       setPurchasing(false);
       
-      // Başarı Alert'i
-      Alert.alert(
-        '✅ Rezervasyon Başarılı!',
-        'Biletiniz My Tickets sekmesine eklendi.',
-        [
-          {
-            text: 'Biletlerime Git',
-            onPress: () => {
-              // Tickets tab'ına yönlendir
-              router.push('/(tabs)/tickets');
+      if (result.success) {
+        // Başarı Alert'i
+        Alert.alert(
+          '✅ Rezervasyon Başarılı!',
+          'Biletiniz My Tickets sekmesine eklendi.',
+          [
+            {
+              text: 'Biletlerime Git',
+              onPress: () => {
+                // Tickets tab'ına yönlendir
+                router.push('/(tabs)/tickets');
+              },
             },
-          },
-          {
-            text: 'Tamam',
-            style: 'cancel',
-          },
-        ]
-      );
+            {
+              text: 'Tamam',
+              style: 'cancel',
+            },
+          ]
+        );
+      } else {
+        Alert.alert('Hata', 'Bilet kaydedilemedi. Lütfen tekrar deneyin.');
+      }
     }, 2000);
   };
 
