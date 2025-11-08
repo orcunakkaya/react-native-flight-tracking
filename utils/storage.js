@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import dateParse from '../helpers/dateParse.js';
 const TICKETS_KEY = 'my_tickets';
 
 // Bilet Kaydet
@@ -46,17 +46,7 @@ export const getActiveTickets = async () => {
     const now = new Date();
     return allTickets.filter(ticket => {
       if (!ticket.date) return false;
-     const dateParts = ticket.date.split('.');
-      let flightDate;
-      if (dateParts.length === 3) {
-        const day = parseInt(dateParts[0]);
-        const month = parseInt(dateParts[1]) - 1;
-        const year = parseInt(dateParts[2]);
-        flightDate = new Date(year, month, day);
-      } else {
-        flightDate = new Date(ticket.date);
-      }
-      flightDate.setHours(23, 59, 59, 999);
+    const flightDate = dateParse(ticket.date);
       return flightDate >= now && ticket.status === 'active';
     });
   } catch (error) {
@@ -73,7 +63,8 @@ export const getPastTickets = async () => {
     
     // Uçuş tarihi geçmiş veya completed olan biletler
     return allTickets.filter(ticket => {
-      const flightDate = new Date(ticket.date);
+      if (!ticket.date) return false;
+      const flightDate = dateParse(ticket.date);
       return flightDate < now || ticket.status === 'completed';
     });
   } catch (error) {
