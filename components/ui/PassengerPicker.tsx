@@ -16,7 +16,7 @@ const PassengerPicker = ({
   setValue
 }: {
   label: any;
-  value: any;
+  value: { adult: number; child: number; infant: number };
   setValue: any;
 }) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);

@@ -28,6 +28,7 @@ export default function FlightResults() {
   }, [params.from, params.to, params.date]);
 
   const handleSelectFlight = (flight) => {
+    console.log("selected flight",flight);
     router.push({
       pathname: `/flight/${flight.id}`,
       params: {

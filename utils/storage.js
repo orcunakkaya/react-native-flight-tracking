@@ -18,7 +18,6 @@ export const saveTicket = async (ticket) => {
     
     // Listeye ekle
     existingTickets.push(newTicket);
-    
     // Kaydet
     await AsyncStorage.setItem(TICKETS_KEY, JSON.stringify(existingTickets));
     
@@ -39,16 +38,25 @@ export const getTickets = async () => {
     return [];
   }
 };
-
+ 
 // Aktif Biletleri Al
 export const getActiveTickets = async () => {
   try {
     const allTickets = await getTickets();
     const now = new Date();
-    
-    // Uçuş tarihi geçmemiş biletler
     return allTickets.filter(ticket => {
-      const flightDate = new Date(ticket.date);
+      if (!ticket.date) return false;
+     const dateParts = ticket.date.split('.');
+      let flightDate;
+      if (dateParts.length === 3) {
+        const day = parseInt(dateParts[0]);
+        const month = parseInt(dateParts[1]) - 1;
+        const year = parseInt(dateParts[2]);
+        flightDate = new Date(year, month, day);
+      } else {
+        flightDate = new Date(ticket.date);
+      }
+      flightDate.setHours(23, 59, 59, 999);
       return flightDate >= now && ticket.status === 'active';
     });
   } catch (error) {

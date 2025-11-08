@@ -6,15 +6,15 @@ import DatePicker from '../../components/ui/DatePicker';
 import PassengerPicker from '../../components/ui/PassengerPicker';
 
 const Book = () => {
-  const [tripType, setTripType] = useState<'oneWay' | 'roundTrip'>('oneWay');
-  const [from, setFrom] = useState(null);
-  const [to, setTo] = useState(null);
   const router = useRouter();
-  const [departureDate, setDepartureDate] = useState(null);
+  const [tripType, setTripType] = useState<'oneWay' | 'roundTrip'>('oneWay');
+  const [from, setFrom] = useState<{code: string, city: string, name: string} | null>();
+  const [to, setTo] = useState<{code: string, city: string, name: string} | null>();
+  const [departureDate, setDepartureDate] = useState<{endDate: string, startDate: string}>();
   const [passengers, setPassengers] = useState<{ adult: number, child: number, infant: number }>({ adult: 0, child: 0, infant: 0 });
 
   useEffect(() => {
-    setDepartureDate(null);
+    setDepartureDate(undefined);
     setTo(null);
   }, [tripType])
 
@@ -36,17 +36,15 @@ const Book = () => {
     // Results sayfasına yönlendir
     router.push({
       pathname: '/flight/result',
-      params: { id: 'bacon' }
-      // params: {
-      //   from: from.code,
-      //   to: to.code,
-      //   fromCity: from.city,
-      //   toCity: to.city,
-      //   dateText: formatDate(departureDate),
-      //   tripType: tripType === 0 ? 'oneWay' : 'roundTrip',
-      //   adults: adults,
-      //   children: children,
-      // },
+      params: {
+        from: from.code,
+        to: to.code,
+        fromCity: from.city,
+        toCity: to.city,
+        date: departureDate?.startDate,
+        tripType: tripType,
+        passengers: JSON.stringify(passengers),
+      },
     });
   };
   

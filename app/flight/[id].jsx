@@ -35,7 +35,7 @@ export default function FlightDetail() {
               text: 'Biletlerime Git',
               onPress: () => {
                 // Tickets tab'ına yönlendir
-                router.push('/(tabs)/tickets');
+                router.push('/(tabs)/flights');
               },
             },
             {

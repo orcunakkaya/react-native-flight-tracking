@@ -1,5 +1,5 @@
-import { useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useState } from 'react';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import {
   RefreshControl,
   ScrollView,
@@ -22,6 +22,7 @@ export default function Tickets() {
   // Biletleri yükle
   const loadTickets = async () => {
     try {
+      console.log("Loading tickets...");
       const active = await getActiveTickets();
       const past = await getPastTickets();
       setActiveTickets(active);
@@ -32,11 +33,10 @@ export default function Tickets() {
   };
 
   // Sayfa açıldığında biletleri yükle
-  useFocusEffect(
-    useCallback(() => {
+
+    useEffect(() => {
       loadTickets();
     }, [])
-  );
 
   // Pull to refresh
   const onRefresh = async () => {
