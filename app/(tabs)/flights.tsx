@@ -71,6 +71,7 @@ export default function Tickets() {
           options={['Aktif', 'Geçmiş']}
           selectedIndex={selectedTab}
           onChange={setSelectedTab}
+          componentStyle={'outline'}
         />
       </View>
 

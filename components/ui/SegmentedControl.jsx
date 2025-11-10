@@ -1,16 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const SegmentedControl = ({ options, selectedIndex, onChange }) => {
+const SegmentedControl = ({ options, selectedIndex, onChange, componentStyle }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,
+      componentStyle === 'outline' ? styles.containerOutline : styles.containerPrimary
+    ]}>
       {options.map((option, index) => (
         <TouchableOpacity
           key={index}
           style={[
             styles.segment,
-            selectedIndex === index && styles.segmentActive,
             index === 0 && styles.firstSegment,
             index === options.length - 1 && styles.lastSegment,
+            selectedIndex === index && (componentStyle === 'outline' ? styles.segmentActiveOutline : styles.segmentActivePrimary),
           ]}
           onPress={() => onChange(index)}
           activeOpacity={0.7}
@@ -18,7 +20,8 @@ const SegmentedControl = ({ options, selectedIndex, onChange }) => {
           <Text
             style={[
               styles.segmentText,
-              selectedIndex === index && styles.segmentTextActive,
+              componentStyle === 'outline' ? styles.segmentTextOutline : styles.segmentTextPrimary,
+              selectedIndex === index && (componentStyle === 'outline' ? styles.segmentTextActiveOutline : styles.segmentTextActivePrimary),
             ]}
           >
             {option}
@@ -32,11 +35,18 @@ const SegmentedControl = ({ options, selectedIndex, onChange }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: '#F3F4F6',
     borderRadius: 10,
-    padding: 4,
+    padding: 3,
     marginBottom: 20,
   },
+
+  containerOutline: {
+    backgroundColor: '#F3F4F6',
+  },
+  containerPrimary: {
+    backgroundColor: '#FFFFFF',
+  },
+
   segment: {
     flex: 1,
     paddingVertical: 10,
@@ -45,29 +55,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   segmentActive: {
-    backgroundColor: 'white',
     borderRadius: 8,
-    shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
   },
   firstSegment: {
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
+    borderRadius: 8,
   },
   lastSegment: {
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
+    borderRadius: 8,
   },
-  segmentText: {
+ segmentText: {
     fontSize: 15,
     fontWeight: '600',
+  },
+
+  segmentActiveOutline: {
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
+  },
+
+  segmentActivePrimary: {
+    backgroundColor: '#2563EB',
+    shadowColor: '#2563EB',
+  },
+
+  segmentTextOutline: {
     color: '#6B7280',
   },
-  segmentTextActive: {
+  segmentTextActiveOutline: {
     color: '#2563EB',
+  },
+
+  segmentTextPrimary: {
+    color: '#94A3B8',
+  },
+  segmentTextActivePrimary: {
+    color: '#FFFFFF',
   },
 });
 
