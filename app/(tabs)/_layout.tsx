@@ -1,6 +1,5 @@
 import { Tabs } from 'expo-router'
 import React from 'react'
-import { StyleSheet } from 'react-native'
 
 const TabLayout = () => {
   return (
@@ -13,5 +12,3 @@ const TabLayout = () => {
 }
 
 export default TabLayout
-
-const styles = StyleSheet.create({})

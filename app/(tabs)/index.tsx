@@ -1,3 +1,4 @@
+import { airpotType } from '@/types/flightTypes';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -8,8 +9,8 @@ import PassengerPicker from '../../components/ui/PassengerPicker';
 const Book = () => {
   const router = useRouter();
   const [tripType, setTripType] = useState<'oneWay' | 'roundTrip'>('oneWay');
-  const [from, setFrom] = useState<{code: string, city: string, name: string} | null>();
-  const [to, setTo] = useState<{code: string, city: string, name: string} | null>();
+  const [from, setFrom] = useState<airpotType | null>();
+  const [to, setTo] = useState<airpotType | null>();
   const [departureDate, setDepartureDate] = useState<{endDate: string, startDate: string}>();
   const [passengers, setPassengers] = useState<{ adult: number, child: number, infant: number }>({ adult: 0, child: 0, infant: 0 });
 
@@ -19,7 +20,6 @@ const Book = () => {
   }, [tripType])
 
   const handleSearch = () => {
-    // Validasyon
     if (!from) {
       Alert.alert('Hata', 'Lütfen kalkış havaalanı seçin');
       return;
@@ -28,12 +28,20 @@ const Book = () => {
       Alert.alert('Hata', 'Lütfen varış havaalanı seçin');
       return;
     }
-    // if (from.code === to.code) {
-    //   Alert.alert('Hata', 'Kalkış ve varış havaalanları aynı olamaz');
-    //   return;
-    // }
+    if (from.code === to.code) {
+      Alert.alert('Hata', 'Kalkış ve varış havaalanları aynı olamaz');
+      return;
+    }
 
-    // Results sayfasına yönlendir
+    if (!departureDate || !departureDate.startDate) {
+      Alert.alert('Hata', 'Lütfen gidiş tarihini seçin');
+      return;
+    }
+    if (passengers.adult + passengers.child + passengers.infant === 0) {
+      Alert.alert('Hata', 'Lütfen en az bir yolcu seçin');
+      return;
+    }
+
     router.push({
       pathname: '/flight/result',
       params: {
@@ -84,20 +92,20 @@ const Book = () => {
       </View>
 
       <AirportPicker
-          label="🛫 Nereden"
+          label="Nereden"
           value={from}
-          onSelect={setFrom}
+          setValue={setFrom}
           placeholder="Seçiniz"
         />
         <AirportPicker
-          label="🛫 Nereye"
+          label="Nereye"
           value={to}
-          onSelect={setTo}
+          setValue={setTo}
           placeholder="Seçiniz"
         />
-        <DatePicker label={tripType === 'oneWay' ? "🛫 Gidiş tarihi" : "🛫 Gidiş dönüş tarihi"} value={departureDate} setValue={setDepartureDate} tripType={tripType} />
+        <DatePicker label={tripType === 'oneWay' ? "Gidiş tarihi" : "Gidiş dönüş tarihi"} value={departureDate} setValue={setDepartureDate} tripType={tripType} />
           <PassengerPicker
-          label="👨‍👩‍👧‍👦 Yolcular"
+          label="Yolcular"
           value={passengers}
           setValue={setPassengers}
         />

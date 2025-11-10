@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import FlightCard from '../../components/flight/FlightCard';
 import { generateFlights, sortFlightsByPrice } from '../../constants/mockFlights';
@@ -16,10 +16,9 @@ export default function FlightResults() {
   const router = useRouter();
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState('price'); // 'price' | 'time'
+  const [sortBy, setSortBy] = useState('price');
 
   useEffect(() => {
-    // Mock API çağrısı (2 saniye bekle)
     setTimeout(() => {
       const results = generateFlights(params.from, params.to, params.date);
       setFlights(results);
@@ -28,7 +27,6 @@ export default function FlightResults() {
   }, [params.from, params.to, params.date]);
 
   const handleSelectFlight = (flight) => {
-    console.log("selected flight",flight);
     router.push({
       pathname: `/flight/${flight.id}`,
       params: {
@@ -96,7 +94,6 @@ export default function FlightResults() {
         </View>
       </View>
 
-      {/* Uçuş Listesi */}
       <ScrollView 
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}

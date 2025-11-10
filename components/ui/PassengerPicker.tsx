@@ -1,29 +1,28 @@
-// import AntDesign from '@expo/vector-icons/AntDesign';
+
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useState } from "react";
 import {
+  Image,
   Modal,
   Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
+import { Icons } from '../../constants/icons';
 
 const PassengerPicker = ({
   label,
   value,
   setValue
 }: {
-  label: any;
+  label: string;
   value: { adult: number; child: number; infant: number };
-  setValue: any;
+  setValue: React.Dispatch<React.SetStateAction<{ adult: number; child: number; infant: number }>>;
 }) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-  const handleSave = () => {
-    setModalVisible(false);
-  }
 
   return (
     <>
@@ -33,13 +32,17 @@ const PassengerPicker = ({
         activeOpacity={0.7}
       >
         <View style={styles.inputContent}>
-          <Text style={styles.inputLabel}>{label}</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+<Image source={Icons.passengers} style={{ width: 16, height: 16, resizeMode: "contain", marginRight: 6 }} />
+<Text style={styles.inputLabel}>{label}</Text>
+          </View>
+          
           <Text style={[styles.inputValue, !value && styles.placeholder]}>
             
             {value ? (`${value.adult} adult, ${value.child} child, ${value.infant} infant`) : 'Tarih seçiniz'}
           </Text>
         </View>
-        <Text style={styles.chevron}>›</Text>
+        <Text><Ionicons name="chevron-forward-outline" size={18} color="#9CA3AF" /></Text>
       </TouchableOpacity>
 
       <Modal
@@ -100,13 +103,6 @@ const PassengerPicker = ({
                 
             </View>
           </View>
-
-          {/* <TouchableOpacity
-            style={styles.saveButton}
-            onPress={() => handleSave()}
-          >
-            <Text style={styles.saveText}>Kaydet</Text>
-          </TouchableOpacity> */}
         </View>
       </Modal>
     </>
@@ -115,11 +111,6 @@ const PassengerPicker = ({
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  chevron: {
-    fontSize: 24,
-    color: "#9CA3AF",
-    fontWeight: "300",
-  },
   inputButton: {
     backgroundColor: "white",
     borderRadius: 12,
@@ -189,11 +180,6 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 18, fontWeight: "600" },
   close: { fontSize: 22 },
-  rangeText: {
-    textAlign: "center",
-    marginTop: 10,
-    color: "#333",
-  }
 });
 
 export default PassengerPicker;

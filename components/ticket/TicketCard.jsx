@@ -1,19 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const TicketCard = ({ ticket, onPress }) => {
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const months = [
-      'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz',
-      'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'
-    ];
-    
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    
-    return `${day} ${month} ${year}`;
-  };
 
   return (
     <TouchableOpacity
@@ -62,7 +49,7 @@ const TicketCard = ({ ticket, onPress }) => {
       <View style={styles.info}>
         <View style={styles.infoItem}>
           <Text style={styles.infoIcon}>📅</Text>
-          <Text style={styles.infoText}>{formatDate(ticket.date)}</Text>
+          <Text style={styles.infoText}>{ticket.date}</Text>
         </View>
         <View style={styles.infoItem}>
           <Text style={styles.infoIcon}>⏱️</Text>

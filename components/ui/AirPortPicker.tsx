@@ -1,19 +1,23 @@
+import { Icons } from '@/constants/icons';
+import { airpotType } from '@/types/flightTypes';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useState } from 'react';
 import {
-    Modal,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  Image,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 
-const AirportPicker = ({ label, value, onSelect, placeholder = 'Seçiniz' }: {label: any, value: any, onSelect: any, placeholder: any}) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+const AirportPicker = ({ label, value, setValue, placeholder = 'Seçiniz' }: {label: string, value: any, setValue: React.Dispatch<React.SetStateAction<any>>, placeholder?: string}) => {
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const airports = [
+  const airports: airpotType[] = [
     { code: 'IST', city: 'İstanbul', name: 'İstanbul Havalimanı' },
     { code: 'SAW', city: 'İstanbul', name: 'Sabiha Gökçen' },
     { code: 'ADB', city: 'İzmir', name: 'Adnan Menderes' },
@@ -42,12 +46,16 @@ const AirportPicker = ({ label, value, onSelect, placeholder = 'Seçiniz' }: {la
         activeOpacity={0.7}
       >
         <View style={styles.inputContent}>
-          <Text style={styles.inputLabel}>{label}</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image source={Icons.airplaneDep} style={{ width: 16, height: 16, resizeMode: "contain", marginRight: 6 }} />
+<Text style={styles.inputLabel}>{label}</Text>
+            </View>
+          
           <Text style={[styles.inputValue, !value && styles.placeholder]}>
             {value ? `${value.city} (${value.code})` : placeholder}
           </Text>
         </View>
-        <Text style={styles.chevron}>›</Text>
+        <Text><Ionicons name="chevron-forward-outline" size={18} color="#9CA3AF" /></Text>
       </TouchableOpacity>
 
       {/* Full Screen Modal */}
@@ -69,13 +77,13 @@ const AirportPicker = ({ label, value, onSelect, placeholder = 'Seçiniz' }: {la
                 setSearchQuery('');
               }}
             >
-              <Text style={styles.closeButtonText}>✕</Text>
+              <Text style={styles.closeButtonText}><Ionicons name="close-outline" size={24} color="#6B7280" /></Text>
             </TouchableOpacity>
           </View>
 
           {/* Search Bar */}
           <View style={styles.searchContainer}>
-            <Text style={styles.searchIcon}>🔍</Text>
+            <Text style={styles.searchIcon}><Ionicons name="search" size={20} color="#9CA3AF" /></Text>
             <TextInput
               style={styles.searchInput}
               placeholder="Şehir veya havaalanı ara..."
@@ -86,7 +94,7 @@ const AirportPicker = ({ label, value, onSelect, placeholder = 'Seçiniz' }: {la
             />
             {searchQuery.length > 0 && (
               <TouchableOpacity onPress={() => setSearchQuery('')}>
-                <Text style={styles.clearButton}>✕</Text>
+                <Text><Ionicons name="close-outline" size={20} color="#9CA3AF" /></Text>
               </TouchableOpacity>
             )}
           </View>
@@ -102,14 +110,14 @@ const AirportPicker = ({ label, value, onSelect, placeholder = 'Seçiniz' }: {la
                     index === filteredAirports.length - 1 && styles.lastItem,
                   ]}
                   onPress={() => {
-                    onSelect(airport);
+                    setValue(airport);
                     setModalVisible(false);
                     setSearchQuery('');
                   }}
                   activeOpacity={0.6}
                 >
                   <View style={styles.airportIcon}>
-                    <Text style={styles.airportIconText}>✈️</Text>
+                    <Text style={styles.airportIconText}><Image source={Icons.airplane} style={{ width: 20, height: 20, resizeMode: "contain" }} /></Text>
                   </View>
                   <View style={styles.airportInfo}>
                     <Text style={styles.airportCity}>{airport.city}</Text>
@@ -131,7 +139,6 @@ const AirportPicker = ({ label, value, onSelect, placeholder = 'Seçiniz' }: {la
 };
 
 const styles = StyleSheet.create({
-  // Input Button Styles
   inputButton: {
     backgroundColor: 'white',
     borderRadius: 12,
@@ -166,11 +173,7 @@ const styles = StyleSheet.create({
     color: '#9CA3AF',
     fontWeight: '400',
   },
-  chevron: {
-    fontSize: 24,
-    color: '#9CA3AF',
-    fontWeight: '300',
-  },
+
 
   // Modal Styles
   modalContainer: {
@@ -228,12 +231,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#111827',
   },
-  clearButton: {
-    fontSize: 18,
-    color: '#9CA3AF',
-    paddingHorizontal: 8,
-  },
-
   // List Styles
   listContainer: {
     flex: 1,

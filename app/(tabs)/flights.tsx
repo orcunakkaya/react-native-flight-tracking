@@ -1,3 +1,7 @@
+import TicketCard from '@/components/ticket/TicketCard';
+import SegmentedControl from '@/components/ui/SegmentedControl';
+import { ticketType } from '@/types/flightTypes';
+import { getActiveTickets, getPastTickets } from '@/utils/storage';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
@@ -8,21 +12,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import TicketCard from '../../components/ticket/TicketCard';
-import SegmentedControl from '../../components/ui/SegmentedControl';
-import { getActiveTickets, getPastTickets } from '../../utils/storage';
 
 export default function Tickets() {
   const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState(0); // 0: Aktif, 1: Geçmiş
-  const [activeTickets, setActiveTickets] = useState([]);
-  const [pastTickets, setPastTickets] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<number>(0); // 0: Aktif, 1: Geçmiş
+  const [activeTickets, setActiveTickets] = useState<ticketType[]>([]);
+  const [pastTickets, setPastTickets] = useState<ticketType[]>([]);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
 
-  // Biletleri yükle
   const loadTickets = async () => {
     try {
-      console.log("Loading tickets...");
       const active = await getActiveTickets();
       const past = await getPastTickets();
       setActiveTickets(active);
@@ -46,10 +45,11 @@ export default function Tickets() {
   };
 
   // Bilet detayına git
-  const handleTicketPress = (ticket) => {
+  const handleTicketPress = (ticket: ticketType) => {
     router.push({
-      pathname: `/ticket/${ticket.ticketId}`,
+      pathname: `/ticket/[id]`,
       params: {
+        id: ticket.ticketId,
         ticketData: JSON.stringify(ticket),
       },
     });
