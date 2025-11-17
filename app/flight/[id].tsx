@@ -1,18 +1,21 @@
+import { Icons } from '@/constants/icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   Alert,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { saveTicket } from '../../utils/storage';
+
 export default function FlightDetail() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<any>();
   const router = useRouter();
-  const [purchasing, setPurchasing] = useState(false);
+  const [purchasing, setPurchasing] = useState<boolean>(false);
 
   // Flight data'yı parse et
   const flight = JSON.parse(params.flightData);
@@ -34,7 +37,6 @@ export default function FlightDetail() {
             {
               text: 'Biletlerime Git',
               onPress: () => {
-                // Tickets tab'ına yönlendir
                 router.push('/(tabs)/flights');
               },
             },
@@ -99,7 +101,7 @@ export default function FlightDetail() {
             <View style={styles.flightPath}>
               <View style={styles.verticalLine} />
               <View style={styles.planeIconContainer}>
-                <Text style={styles.planeIcon}>✈️</Text>
+                <Image source={Icons.airplane} style={{ width: 20, height: 20, resizeMode: "contain"}} />
                 <Text style={styles.durationText}>{flight.duration}</Text>
               </View>
             </View>
@@ -122,7 +124,7 @@ export default function FlightDetail() {
           
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
-              <Text style={styles.infoIcon}>📅</Text>
+              <Image source={Icons.calendar} style={{ width: 24, height: 24, resizeMode: "contain", marginRight: 10 }} />
               <View style={styles.infoContent}>
                 <Text style={styles.infoLabel}>Tarih</Text>
                 <Text style={styles.infoValue}>{flight.date}</Text>
@@ -130,7 +132,7 @@ export default function FlightDetail() {
             </View>
 
             <View style={styles.infoItem}>
-              <Text style={styles.infoIcon}>⏱️</Text>
+              <Image source={Icons.clock} style={{ width: 24, height: 24, resizeMode: "contain", marginRight: 10 }} />
               <View style={styles.infoContent}>
                 <Text style={styles.infoLabel}>Süre</Text>
                 <Text style={styles.infoValue}>{flight.duration}</Text>
@@ -140,7 +142,7 @@ export default function FlightDetail() {
 
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
-              <Text style={styles.infoIcon}>🎒</Text>
+              <Image source={Icons.bag} style={{ width: 24, height: 24, resizeMode: "contain", marginRight: 10 }} />
               <View style={styles.infoContent}>
                 <Text style={styles.infoLabel}>Bagaj</Text>
                 <Text style={styles.infoValue}>{flight.baggage}</Text>
@@ -148,7 +150,7 @@ export default function FlightDetail() {
             </View>
 
             <View style={styles.infoItem}>
-              <Text style={styles.infoIcon}>💺</Text>
+              <Image source={Icons.seat} style={{ width: 24, height: 24, resizeMode: "contain", marginRight: 10 }} />
               <View style={styles.infoContent}>
                 <Text style={styles.infoLabel}>Aktarma</Text>
                 <Text style={styles.infoValue}>
@@ -310,9 +312,6 @@ const styles = StyleSheet.create({
   planeIconContainer: {
     marginLeft: 16,
   },
-  planeIcon: {
-    fontSize: 20,
-  },
   durationText: {
     fontSize: 12,
     color: '#6B7280',
@@ -330,10 +329,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9FAFB',
     padding: 12,
     borderRadius: 8,
-  },
-  infoIcon: {
-    fontSize: 24,
-    marginRight: 10,
   },
   infoContent: {
     flex: 1,
