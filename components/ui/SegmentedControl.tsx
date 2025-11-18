@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const SegmentedControl = ({ options, selectedIndex, onChange, componentStyle }) => {
+const SegmentedControl = ({ options, selectedIndex, onChange, componentStyle }: { options: string[], selectedIndex: number, onChange: (index: number) => void, componentStyle: 'primary' | 'outline' }) => {
   return (
     <View style={[styles.container,
       componentStyle === 'outline' ? styles.containerOutline : styles.containerPrimary
