@@ -1,3 +1,6 @@
+import FlightCard from '@/components/flight/FlightCard';
+import { generateFlights, sortFlightsByPrice } from '@/constants/mockFlights';
+import { flightType } from '@/types/flightTypes';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
@@ -8,28 +11,27 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import FlightCard from '../../components/flight/FlightCard';
-import { generateFlights, sortFlightsByPrice } from '../../constants/mockFlights';
 
 export default function FlightResults() {
   const params = useLocalSearchParams();
   const router = useRouter();
-  const [flights, setFlights] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState('price');
+  const [flights, setFlights] = useState<flightType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [sortBy, setSortBy] = useState<"price" | "time">('price');
 
   useEffect(() => {
     setTimeout(() => {
-      const results = generateFlights(params.from, params.to, params.date);
+      const results: flightType[] = generateFlights(params.from, params.to, params.date);
       setFlights(results);
       setLoading(false);
     }, 1500);
   }, [params.from, params.to, params.date]);
 
-  const handleSelectFlight = (flight) => {
+  const handleSelectFlight = (flight: flightType) => {
     router.push({
-      pathname: `/flight/${flight.id}`,
+      pathname: `/flight/[id]`,
       params: {
+        id: flight.id,
         flightData: JSON.stringify(flight),
       },
     });

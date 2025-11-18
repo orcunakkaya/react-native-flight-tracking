@@ -1,6 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Icons } from '@/constants/icons';
+import { ticketType } from '@/types/flightTypes';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const TicketCard = ({ ticket, onPress }) => {
+const TicketCard = ({ ticket, onPress }: { ticket: ticketType, onPress: () => void }) => {
 
   return (
     <TouchableOpacity
@@ -8,10 +11,14 @@ const TicketCard = ({ ticket, onPress }) => {
       onPress={onPress}
       activeOpacity={0.7}
     >
-      {/* Header - Havayolu */}
       <View style={styles.header}>
         <View style={styles.airlineInfo}>
-          <Text style={styles.airlineLogo}>{ticket.airlineInfo?.logo || '✈️'}</Text>
+          {
+            ticket.airlineInfo?.logo ? 
+              <Text style={styles.airlineLogo}>{ticket.airlineInfo?.logo}</Text>
+                : 
+              <Image source={Icons.airplane} style={{ width: 18, height: 18, resizeMode: "contain"}} />
+          }
           <View>
             <Text style={styles.airlineName}>{ticket.airlineInfo?.name || 'Havayolu'}</Text>
             <Text style={styles.flightNumber}>{ticket.flightNumber}</Text>
@@ -24,7 +31,6 @@ const TicketCard = ({ ticket, onPress }) => {
         </View>
       </View>
 
-      {/* Route */}
       <View style={styles.route}>
         <View style={styles.locationBlock}>
           <Text style={styles.airportCode}>{ticket.from}</Text>
@@ -34,7 +40,7 @@ const TicketCard = ({ ticket, onPress }) => {
         <View style={styles.routeLine}>
           <View style={styles.dot} />
           <View style={styles.line} />
-          <Text style={styles.planeIcon}>✈️</Text>
+          <Image source={Icons.airplane} style={{ width: 18, height: 18, resizeMode: "contain", marginHorizontal: 4}} />
           <View style={styles.line} />
           <View style={styles.dot} />
         </View>
@@ -48,15 +54,15 @@ const TicketCard = ({ ticket, onPress }) => {
       {/* Info */}
       <View style={styles.info}>
         <View style={styles.infoItem}>
-          <Text style={styles.infoIcon}>📅</Text>
+          <Image source={Icons.calendar} style={{ width: 18, height: 18, resizeMode: "contain"}} />
           <Text style={styles.infoText}>{ticket.date}</Text>
         </View>
         <View style={styles.infoItem}>
-          <Text style={styles.infoIcon}>⏱️</Text>
+          <Image source={Icons.clock} style={{ width: 16, height: 16, resizeMode: "contain"}} />
           <Text style={styles.infoText}>{ticket.duration}</Text>
         </View>
         <View style={styles.infoItem}>
-          <Text style={styles.infoIcon}>💺</Text>
+          <Image source={Icons.seat} style={{ width: 18, height: 18, resizeMode: "contain"}} />
           <Text style={styles.infoText}>{ticket.seatClass}</Text>
         </View>
       </View>
@@ -66,7 +72,7 @@ const TicketCard = ({ ticket, onPress }) => {
         <Text style={styles.price}>{ticket.price} ₺</Text>
         <View style={styles.viewButton}>
           <Text style={styles.viewButtonText}>Bileti Göster</Text>
-          <Text style={styles.arrow}>›</Text>
+          <Ionicons name="chevron-forward-outline" size={13} color="#2563EB" />
         </View>
       </View>
     </TouchableOpacity>
@@ -166,10 +172,6 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: '#E5E7EB',
   },
-  planeIcon: {
-    fontSize: 14,
-    marginHorizontal: 4,
-  },
   info: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -182,9 +184,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-  },
-  infoIcon: {
-    fontSize: 14,
   },
   infoText: {
     fontSize: 12,
@@ -213,11 +212,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '600',
     color: '#2563EB',
-  },
-  arrow: {
-    fontSize: 18,
-    color: '#2563EB',
-    fontWeight: '300',
   },
 });
 

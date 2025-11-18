@@ -1,4 +1,3 @@
-import TicketCard from '@/components/ticket/TicketCard';
 import SegmentedControl from '@/components/ui/SegmentedControl';
 import { ticketType } from '@/types/flightTypes';
 import { getActiveTickets, getPastTickets } from '@/utils/storage';
@@ -12,6 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import TicketCard from '../../components/ticket/TicketCard';
 
 export default function Tickets() {
   const router = useRouter();

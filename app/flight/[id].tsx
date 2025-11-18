@@ -1,4 +1,5 @@
 import { Icons } from '@/constants/icons';
+import { saveTicket } from '@/utils/storage';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -10,7 +11,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { saveTicket } from '../../utils/storage';
 
 export default function FlightDetail() {
   const params = useLocalSearchParams<any>();

@@ -1,13 +1,13 @@
+import { deleteTicket } from '@/utils/storage';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import {
-    Alert,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { deleteTicket } from '../../utils/storage';
 
 export default function TicketDetail() {
   const params = useLocalSearchParams();

@@ -1,14 +1,15 @@
+import { Icons } from '@/constants/icons';
+import { flightType } from '@/types/flightTypes';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const FlightCard = ({ flight, onSelect }: { flight: any, onSelect: any}) => {
+const FlightCard = ({ flight, onSelect }: { flight: flightType, onSelect: (flight: flightType) => void}) => {
   return (
     <TouchableOpacity
       style={styles.card}
       onPress={() => onSelect(flight)}
       activeOpacity={0.7}
     >
-      {/* Havayolu Bilgisi */}
       <View style={styles.header}>
         <View style={styles.airlineInfo}>
           <Text style={styles.airlineLogo}>{flight.airlineInfo.logo}</Text>
@@ -22,7 +23,6 @@ const FlightCard = ({ flight, onSelect }: { flight: any, onSelect: any}) => {
         </View>
       </View>
 
-      {/* Uçuş Saatleri */}
       <View style={styles.flightTimes}>
         <View style={styles.timeBlock}>
           <Text style={styles.time}>{flight.departureTime}</Text>
@@ -34,7 +34,7 @@ const FlightCard = ({ flight, onSelect }: { flight: any, onSelect: any}) => {
           <View style={styles.flightLine}>
             <View style={styles.dot} />
             <View style={styles.line} />
-            <Text style={styles.plane}>✈️</Text>
+            <Image source={Icons.airplane} style={{ width: 20, height: 20, resizeMode: "contain", marginHorizontal: 12}} />
             <View style={styles.line} />
             <View style={styles.dot} />
           </View>
@@ -52,7 +52,7 @@ const FlightCard = ({ flight, onSelect }: { flight: any, onSelect: any}) => {
       {/* Alt Bilgiler */}
       <View style={styles.footer}>
         <View style={styles.baggageInfo}>
-          <Text style={styles.baggageIcon}>🎒</Text>
+          <Image source={Icons.bag} style={{ width: 22, height: 22, resizeMode: "contain"}} />
           <Text style={styles.baggageText}>{flight.baggage}</Text>
         </View>
         
@@ -163,10 +163,6 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: '#E5E7EB',
   },
-  plane: {
-    fontSize: 14,
-    marginHorizontal: 4,
-  },
   stops: {
     fontSize: 11,
     color: '#059669',
@@ -184,9 +180,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-  },
-  baggageIcon: {
-    fontSize: 16,
   },
   baggageText: {
     fontSize: 13,
