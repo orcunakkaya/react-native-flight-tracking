@@ -1,11 +1,11 @@
 import AirportPicker from '@/components/ui/AirPortPicker';
 import DatePicker from '@/components/ui/DatePicker';
 import PassengerPicker from '@/components/ui/PassengerPicker';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 import { airpotType } from '@/types/flightTypes';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import SegmentedControl from '../../components/ui/SegmentedControl';
 
 const Book = () => {
   const router = useRouter();
