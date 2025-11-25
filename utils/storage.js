@@ -1,14 +1,10 @@
+import dateParse from '@/helpers/dateParse.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import dateParse from '../helpers/dateParse.js';
 const TICKETS_KEY = 'my_tickets';
 
-// Bilet Kaydet
 export const saveTicket = async (ticket) => {
   try {
-    // Mevcut biletleri al
     const existingTickets = await getTickets();
-    
-    // Yeni bilet objesi oluştur
     const newTicket = {
       ...ticket,
       ticketId: `TICKET_${Date.now()}`, // Benzersiz ID
@@ -16,9 +12,7 @@ export const saveTicket = async (ticket) => {
       status: 'active', // active | completed
     };
     
-    // Listeye ekle
     existingTickets.push(newTicket);
-    // Kaydet
     await AsyncStorage.setItem(TICKETS_KEY, JSON.stringify(existingTickets));
     
     return { success: true, ticket: newTicket };
@@ -28,7 +22,6 @@ export const saveTicket = async (ticket) => {
   }
 };
 
-// Tüm Biletleri Al
 export const getTickets = async () => {
   try {
     const tickets = await AsyncStorage.getItem(TICKETS_KEY);
@@ -38,8 +31,7 @@ export const getTickets = async () => {
     return [];
   }
 };
- 
-// Aktif Biletleri Al
+
 export const getActiveTickets = async () => {
   try {
     const allTickets = await getTickets();
@@ -55,13 +47,11 @@ export const getActiveTickets = async () => {
   }
 };
 
-// Geçmiş Biletleri Al
 export const getPastTickets = async () => {
   try {
     const allTickets = await getTickets();
     const now = new Date();
     
-    // Uçuş tarihi geçmiş veya completed olan biletler
     return allTickets.filter(ticket => {
       if (!ticket.date) return false;
       const flightDate = dateParse(ticket.date);
@@ -73,7 +63,6 @@ export const getPastTickets = async () => {
   }
 };
 
-// Tek Bilet Al (ID ile)
 export const getTicketById = async (ticketId) => {
   try {
     const allTickets = await getTickets();
@@ -84,7 +73,6 @@ export const getTicketById = async (ticketId) => {
   }
 };
 
-// Bilet Sil
 export const deleteTicket = async (ticketId) => {
   try {
     const allTickets = await getTickets();
@@ -97,7 +85,6 @@ export const deleteTicket = async (ticketId) => {
   }
 };
 
-// Tüm Biletleri Sil (Test için)
 export const clearAllTickets = async () => {
   try {
     await AsyncStorage.removeItem(TICKETS_KEY);

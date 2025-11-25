@@ -48,7 +48,7 @@ const AirportPicker = ({ label, value, setValue, placeholder = 'Seçiniz' }: {la
         <View style={styles.inputContent}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image source={Icons.airplaneDep} style={{ width: 16, height: 16, resizeMode: "contain", marginRight: 6 }} />
-<Text style={styles.inputLabel}>{label}</Text>
+              <Text style={styles.inputLabel}>{label}</Text>
             </View>
           
           <Text style={[styles.inputValue, !value && styles.placeholder]}>
@@ -58,7 +58,6 @@ const AirportPicker = ({ label, value, setValue, placeholder = 'Seçiniz' }: {la
         <Text><Ionicons name="chevron-forward-outline" size={18} color="#9CA3AF" /></Text>
       </TouchableOpacity>
 
-      {/* Full Screen Modal */}
       <Modal
         animationType="slide"
         transparent={false}
@@ -67,7 +66,6 @@ const AirportPicker = ({ label, value, setValue, placeholder = 'Seçiniz' }: {la
       >
         <View style={styles.modalContainer}>
           
-          {/* Header */}
           <View style={styles.header}>
             <Text style={styles.headerTitle}>Havaalanı Seçin</Text>
             <TouchableOpacity
@@ -81,7 +79,6 @@ const AirportPicker = ({ label, value, setValue, placeholder = 'Seçiniz' }: {la
             </TouchableOpacity>
           </View>
 
-          {/* Search Bar */}
           <View style={styles.searchContainer}>
             <Text style={styles.searchIcon}><Ionicons name="search" size={20} color="#9CA3AF" /></Text>
             <TextInput
@@ -99,7 +96,6 @@ const AirportPicker = ({ label, value, setValue, placeholder = 'Seçiniz' }: {la
             )}
           </View>
 
-          {/* Airport List */}
           <ScrollView style={styles.listContainer}>
             {filteredAirports.length > 0 ? (
               filteredAirports.map((airport, index) => (

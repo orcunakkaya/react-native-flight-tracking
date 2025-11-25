@@ -1,4 +1,3 @@
-// Mock Havayolu Verileri
 export const airlines = {
   TK: {
     code: 'TK',
@@ -26,7 +25,6 @@ export const airlines = {
   },
 };
 
-// Mock Uçuş Verileri Oluşturucu
 export const generateFlights = (from, to, date) => {
   const flightTemplates = [
     {

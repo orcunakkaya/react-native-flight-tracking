@@ -1,4 +1,5 @@
 
+import { Icons } from '@/constants/icons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useState } from "react";
@@ -11,7 +12,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { Icons } from '../../constants/icons';
 
 const PassengerPicker = ({
   label,
@@ -33,16 +33,16 @@ const PassengerPicker = ({
       >
         <View style={styles.inputContent}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-<Image source={Icons.passengers} style={{ width: 16, height: 16, resizeMode: "contain", marginRight: 6 }} />
-<Text style={styles.inputLabel}>{label}</Text>
+            <Image source={Icons.passengers} style={{ width: 16, height: 16, resizeMode: "contain", marginRight: 6 }} />
+            <Text style={styles.inputLabel}>{label}</Text>
           </View>
           
           <Text style={[styles.inputValue, !value && styles.placeholder]}>
             
-            {value ? (`${value.adult} adult, ${value.child} child, ${value.infant} infant`) : 'Tarih seçiniz'}
+            {value ? (`${value.adult} yetişkin, ${value.child} çocuk, ${value.infant} bebek`) : 'Tarih seçiniz'}
           </Text>
         </View>
-        <Text><Ionicons name="chevron-forward-outline" size={18} color="#9CA3AF" /></Text>
+        <Ionicons name="chevron-forward-outline" size={18} color="#9CA3AF" />
       </TouchableOpacity>
 
       <Modal
@@ -58,15 +58,15 @@ const PassengerPicker = ({
 
         <View style={styles.bottomSheet}>
           <View style={styles.header}>
-            <Text style={styles.title}>Number of Passengers</Text>
+            <Text style={styles.title}>Yolcu Sayısı</Text>
             <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Text style={styles.close}>✕</Text>
+              <Ionicons name="close-outline" size={26} color="#6B7280" />
             </TouchableOpacity>
           </View>
 
           <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#E5E7EB', paddingBottom: 16, paddingTop: 2 }}>
-                <Text style={{alignSelf: 'center'}}>Adult <Text style={styles.placeholder}>(12+)</Text></Text>
+                <Text style={{alignSelf: 'center'}}>Yetişkin <Text style={styles.placeholder}>(12+)</Text></Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
                     <TouchableOpacity onPress={() => value.adult > 0 && setValue({ ...value, adult: value.adult - 1 })}>
                     <FontAwesome6 name="minus" size={24} color={value.adult > 0 ? 'black' : 'rgba(0,0,0,0.5)'} />
@@ -78,7 +78,7 @@ const PassengerPicker = ({
                 </View>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10, borderBottomWidth: 1, borderBottomColor: '#E5E7EB', paddingBottom: 16 }}>
-                <Text style={{alignSelf: 'center'}}>Child <Text style={styles.placeholder}>(2-12)</Text></Text>
+                <Text style={{alignSelf: 'center'}}>Çocuk <Text style={styles.placeholder}>(2-12)</Text></Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
                     <TouchableOpacity onPress={() => value.child > 0 && setValue({ ...value, child: value.child - 1 })}>
                     <FontAwesome6 name="minus" size={24} color={value.child > 0 ? 'black' : 'rgba(0,0,0,0.5)'} />
@@ -90,7 +90,7 @@ const PassengerPicker = ({
                 </View>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10, paddingBottom: 2 }}>
-                <Text style={{alignSelf: 'center'}}>Infant <Text style={styles.placeholder}>(0-2)</Text></Text>
+                <Text style={{alignSelf: 'center'}}>Bebek <Text style={styles.placeholder}>(0-2)</Text></Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
                     <TouchableOpacity onPress={() => value.infant > 0 && setValue({ ...value, infant: value.infant - 1 })}>
                     <FontAwesome6 name="minus" size={24} color={value.infant > 0 ? 'black' : 'rgba(0,0,0,0.5)'} />

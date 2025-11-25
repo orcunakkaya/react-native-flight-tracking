@@ -68,7 +68,7 @@ const Book = () => {
     <View style={styles.container}>
       
       <SegmentedControl
-          options={['One Way', 'Round Trip']}
+          options={['Tek Yön', 'Gidiş Dönüş']}
           selectedIndex={selectedTab}
           onChange={handleChangeSegmented}
           componentStyle={'primary'}
@@ -98,7 +98,7 @@ const Book = () => {
     <TouchableOpacity style={styles.searchButton} onPress={handleSearch}
           >
           <Text style={styles.searchButtonText}>
-            Search Flight
+            Uçuş ara
           </Text>
         </TouchableOpacity>
     </View>

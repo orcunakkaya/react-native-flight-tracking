@@ -1,3 +1,4 @@
+import { Icons } from '@/constants/icons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useState } from "react";
 import {
@@ -10,7 +11,6 @@ import {
   View
 } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { Icons } from '../../constants/icons';
 
 const DatePicker = ({
   label,
@@ -113,7 +113,7 @@ const DatePicker = ({
         <View style={styles.inputContent}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image source={Icons.calendar} style={{ width: 16, height: 16, resizeMode: "contain", marginRight: 6 }} />
-<Text style={styles.inputLabel}>{label}</Text>
+            <Text style={styles.inputLabel}>{label}</Text>
           </View>
           
           <Text style={[styles.inputValue, !value && styles.placeholder]}>

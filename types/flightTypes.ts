@@ -5,11 +5,6 @@ export type airpotType = {
     name: string,
 }
 
-
-export type flightSearchParams = {
-   
-}
-
 export type flightType = {
     id: string,
     airline: string,

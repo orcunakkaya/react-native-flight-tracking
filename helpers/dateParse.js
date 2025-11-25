@@ -1,6 +1,5 @@
 
 const dateParse = (dateString) => {
-    console.log("dateString",dateString);
     const dateParts = dateString.split('.');
       let flightDate;
       if (dateParts.length === 3) {

@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default function FlightResults() {
+const FlightResults = () => {
   const params = useLocalSearchParams();
   const router = useRouter();
   const [flights, setFlights] = useState<flightType[]>([]);
@@ -119,6 +119,8 @@ export default function FlightResults() {
     </View>
   );
 }
+
+export default FlightResults;
 
 const styles = StyleSheet.create({
   container: {

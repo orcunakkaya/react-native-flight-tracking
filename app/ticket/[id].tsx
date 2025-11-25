@@ -9,12 +9,12 @@ import {
   View,
 } from 'react-native';
 
-export default function TicketDetail() {
-  const params = useLocalSearchParams();
+const TicketDetail = () => {
+  const params = useLocalSearchParams<any>();
   const router = useRouter();
   const ticket = JSON.parse(params.ticketData);
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const months = [
       'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
@@ -69,21 +69,17 @@ export default function TicketDetail() {
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* Boarding Pass Card */}
         <View style={styles.boardingPass}>
-          {/* Header */}
           <View style={styles.passHeader}>
             <Text style={styles.passTitle}>BİNİŞ KARTI</Text>
             <Text style={styles.passSubtitle}>BOARDING PASS</Text>
           </View>
 
-          {/* Airline */}
           <View style={styles.airlineSection}>
             <Text style={styles.airlineLogo}>{ticket.airlineInfo?.logo || '✈️'}</Text>
             <Text style={styles.airlineName}>{ticket.airlineInfo?.name || 'Havayolu'}</Text>
           </View>
 
-          {/* Route */}
           <View style={styles.routeSection}>
             <View style={styles.cityBlock}>
               <Text style={styles.cityCode}>{ticket.from}</Text>
@@ -102,14 +98,12 @@ export default function TicketDetail() {
             </View>
           </View>
 
-          {/* Dotted Divider */}
           <View style={styles.dottedDivider}>
             <View style={styles.leftCircle} />
             <View style={styles.dots} />
             <View style={styles.rightCircle} />
           </View>
 
-          {/* Details */}
           <View style={styles.detailsSection}>
             <View style={styles.detailRow}>
               <View style={styles.detailItem}>
@@ -156,7 +150,6 @@ export default function TicketDetail() {
             </View>
           </View>
 
-          {/* QR Code */}
           <View style={styles.qrSection}>
             <View style={styles.qrPlaceholder}>
               <Text style={styles.qrIcon}>📱</Text>
@@ -165,11 +158,9 @@ export default function TicketDetail() {
             </View>
           </View>
 
-          {/* Ticket ID */}
           <Text style={styles.ticketId}>PNR: {ticket.ticketId}</Text>
         </View>
 
-        {/* Info Card */}
         <View style={styles.infoCard}>
           <Text style={styles.infoTitle}>📋 Bilet Bilgileri</Text>
           <View style={styles.infoRow}>
@@ -199,6 +190,8 @@ export default function TicketDetail() {
     </View>
   );
 }
+
+export default TicketDetail;
 
 const styles = StyleSheet.create({
   container: {

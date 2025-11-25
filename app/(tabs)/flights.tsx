@@ -1,3 +1,4 @@
+import TicketCard from '@/components/ticket/TicketCard';
 import SegmentedControl from '@/components/ui/SegmentedControl';
 import { ticketType } from '@/types/flightTypes';
 import { getActiveTickets, getPastTickets } from '@/utils/storage';
@@ -11,7 +12,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import TicketCard from '../../components/ticket/TicketCard';
 
 export default function Tickets() {
   const router = useRouter();
@@ -31,20 +31,16 @@ export default function Tickets() {
     }
   };
 
-  // Sayfa açıldığında biletleri yükle
-
     useEffect(() => {
       loadTickets();
     }, [])
 
-  // Pull to refresh
   const onRefresh = async () => {
     setRefreshing(true);
     await loadTickets();
     setRefreshing(false);
   };
 
-  // Bilet detayına git
   const handleTicketPress = (ticket: ticketType) => {
     router.push({
       pathname: `/ticket/[id]`,
@@ -55,17 +51,14 @@ export default function Tickets() {
     });
   };
 
-  // Gösterilecek biletler
   const displayedTickets = selectedTab === 0 ? activeTickets : pastTickets;
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>Biletlerim</Text>
       </View>
 
-      {/* Segmented Control */}
       <View style={styles.segmentContainer}>
         <SegmentedControl
           options={['Aktif', 'Geçmiş']}
@@ -75,7 +68,6 @@ export default function Tickets() {
         />
       </View>
 
-      {/* Tickets List */}
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}

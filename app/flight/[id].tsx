@@ -12,27 +12,24 @@ import {
   View
 } from 'react-native';
 
-export default function FlightDetail() {
+const FlightDetail = () => {
   const params = useLocalSearchParams<any>();
   const router = useRouter();
   const [purchasing, setPurchasing] = useState<boolean>(false);
 
-  // Flight data'yı parse et
   const flight = JSON.parse(params.flightData);
 
   const handlePurchase = async () => {
     setPurchasing(true);
 
-    // Mock satın alma işlemi (2 saniye)
     setTimeout(async () => {
       const result = await saveTicket(flight);
       setPurchasing(false);
       
       if (result.success) {
-        // Başarı Alert'i
         Alert.alert(
           '✅ Rezervasyon Başarılı!',
-          'Biletiniz My Tickets sekmesine eklendi.',
+          'Biletiniz uçuşlarım sekmesine eklendi.',
           [
             {
               text: 'Biletlerime Git',
@@ -66,7 +63,6 @@ export default function FlightDetail() {
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* Havayolu Card */}
         <View style={styles.card}>
           <View style={styles.airlineHeader}>
             <View style={styles.airlineInfo}>
@@ -82,12 +78,10 @@ export default function FlightDetail() {
           </View>
         </View>
 
-        {/* Uçuş Rotası */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Uçuş Rotası</Text>
           
           <View style={styles.routeContainer}>
-            {/* Kalkış */}
             <View style={styles.routePoint}>
               <View style={styles.routeDot} />
               <View style={styles.routeInfo}>
@@ -97,7 +91,6 @@ export default function FlightDetail() {
               </View>
             </View>
 
-            {/* Uçuş Çizgisi */}
             <View style={styles.flightPath}>
               <View style={styles.verticalLine} />
               <View style={styles.planeIconContainer}>
@@ -106,7 +99,6 @@ export default function FlightDetail() {
               </View>
             </View>
 
-            {/* Varış */}
             <View style={styles.routePoint}>
               <View style={styles.routeDot} />
               <View style={styles.routeInfo}>
@@ -118,7 +110,6 @@ export default function FlightDetail() {
           </View>
         </View>
 
-        {/* Uçuş Bilgileri */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Uçuş Bilgileri</Text>
           
@@ -161,7 +152,6 @@ export default function FlightDetail() {
           </View>
         </View>
 
-        {/* Fiyat Özeti */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Fiyat Özeti</Text>
           
@@ -184,7 +174,6 @@ export default function FlightDetail() {
         </View>
       </ScrollView>
 
-      {/* Satın Al Butonu */}
       <View style={styles.footer}>
         <View style={styles.footerPrice}>
           <Text style={styles.footerPriceLabel}>Toplam</Text>
@@ -204,6 +193,8 @@ export default function FlightDetail() {
     </View>
   );
 }
+
+export default FlightDetail;
 
 const styles = StyleSheet.create({
   container: {
